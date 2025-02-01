@@ -1,16 +1,57 @@
 <!DOCTYPE html>
-
-<html>
-
+<html lang="en">
 <head>
-	<link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Board</title>
+    <style>
+        .container {
+            display: grid;
+            grid-template-columns: repeat(40, 1fr); /* 40 columns for 800 boxes (20x40) */
+            grid-template-rows: repeat(20, 1fr);    /* 20 rows */
+            width: 800px; /* Adjust as needed */
+            height: 400px; /* Adjust as needed */
+            margin: 0 auto; /* Center the grid */
+        }
+
+        .square {
+            width: 100%;
+            height: 100%;
+            background-color: #333; /* Initial background color */
+            transition: background-color 1s ease; /* Smooth transition for color change */
+        }
+    </style>
 </head>
-
 <body>
-	<!-- the entire body must be written by student -->
-    <script type="text/javascript" src="./script.js">
-</script>
+    <div class="container"></div>
 
+    <script>
+        const container = document.querySelector('.container');
+        const numSquares = 800;
+
+        for (let i = 0; i < numSquares; i++) {
+            const square = document.createElement('div');
+            square.classList.add('square');
+
+            square.addEventListener('mouseover', () => {
+                const randomColor = getRandomColor();
+                square.style.backgroundColor = randomColor;
+
+                // Reset color after 1 second (1000 milliseconds)
+                setTimeout(() => {
+                    square.style.backgroundColor = '#333'; // Or revert to the original color
+                }, 1000);
+            });
+
+            container.appendChild(square);
+        }
+
+        function getRandomColor() {
+            const r = Math.floor(Math.random() * 256);
+            const g = Math.floor(Math.random() * 256);
+            const b = Math.floor(Math.random() * 256);
+            return `rgb(${r}, ${g}, ${b})`;
+        }
+    </script>
 </body>
-
 </html>
